@@ -16,10 +16,8 @@ function NewCountry({ onAddCountry }) {
   };
 
   const handleSave = () => {
-    if (countryName.trim()) {
-      onAddCountry(countryName.trim());
-      handleClose();
-    }
+    onAddCountry(countryName); // Pass country name to parent even if it's empty
+    handleClose();
   };
 
   const handleInputChange = (e) => {
@@ -49,7 +47,7 @@ function NewCountry({ onAddCountry }) {
           <Button onClick={handleClose} color="secondary">
             Cancel
           </Button>
-          <Button onClick={handleSave} color="primary" disabled={!countryName.trim()}>
+          <Button onClick={handleSave} color="primary">
             Save
           </Button>
         </DialogActions>

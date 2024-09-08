@@ -13,22 +13,6 @@ function App() {
 
   const [showToast, setShowToast] = useState(false); // State to control toast visibility
 
-  const incrementMedal = (id, type) => {
-    setCountries(countries.map(country =>
-      country.id === id
-        ? { ...country, [type]: country[type] + 1 }
-        : country
-    ));
-  };
-
-  const decrementMedal = (id, type) => {
-    setCountries(countries.map(country =>
-      country.id === id && country[type] > 0
-        ? { ...country, [type]: country[type] - 1 }
-        : country
-    ));
-  };
-
   const addCountry = (name) => {
     if (name.trim() === '') {
       setShowToast(true); // Show the toast if no valid name is entered
@@ -49,28 +33,14 @@ function App() {
     setCountries(countries.filter(country => country.id !== id));
   };
 
-  const totalMedals = countries.reduce((totals, country) => {
-    totals.gold += country.gold;
-    totals.silver += country.silver;
-    totals.bronze += country.bronze;
-    return totals;
-  }, { gold: 0, silver: 0, bronze: 0 });
-
   return (
     <div className="App">
-      <h1>Total Medals</h1>
-      <p className="total-medals">
-        Gold: {totalMedals.gold} | Silver: {totalMedals.silver} | Bronze: {totalMedals.bronze}
-      </p>
-
-      <NewCountry onAddCountry={addCountry} />
-
+      <NewCountry onAddCountry={addCountry} /> {/* Passing the function as a prop */}
+      
       {countries.map(country => (
         <Country 
           key={country.id}
           {...country}
-          onIncrement={(type) => incrementMedal(country.id, type)}
-          onDecrement={(type) => decrementMedal(country.id, type)}
           onDelete={() => deleteCountry(country.id)}
         />
       ))}

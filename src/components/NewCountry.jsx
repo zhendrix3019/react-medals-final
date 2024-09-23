@@ -16,7 +16,12 @@ function NewCountry({ onAddCountry }) {
   };
 
   const handleSave = () => {
-    onAddCountry(countryName); // Pass country name to parent even if it's empty
+    if (countryName.trim() === '') {
+      alert("Country name cannot be empty!");
+      return;
+    }
+
+    onAddCountry(countryName);
     handleClose();
   };
 
